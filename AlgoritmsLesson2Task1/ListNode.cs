@@ -66,6 +66,8 @@ namespace AlgoritmsLesson2Task1
                 }
                 counter++;
             }
+
+            count--;
         }
 
         public void RemoveNode(Node node)
@@ -80,6 +82,8 @@ namespace AlgoritmsLesson2Task1
                 if (nextNode != null) prevNode.NextNode = null;
                 if (prevNode != null) nextNode.PrevNode = null;
             }
+
+            count--;
         }
 
         public Node FindNode(int searchValue)
