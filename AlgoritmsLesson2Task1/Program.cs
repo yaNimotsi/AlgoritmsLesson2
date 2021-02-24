@@ -18,16 +18,6 @@ namespace AlgoritmsLesson2Task1
 
             ListNode listNode = new ListNode(startNode, endNode);
 
-            var str = Console.ReadLine();
-
-            while (str.Length > 0)
-            {
-                int.TryParse(Console.ReadLine(), out int userVal);
-
-                //Node node = new Node(userVal);
-
-                listNode.AddNode(userVal);
-            }
         }
     }
 }
