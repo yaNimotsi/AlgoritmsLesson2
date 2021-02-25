@@ -17,7 +17,11 @@ namespace AlgoritmsLesson2Task1
             };
 
             ListNode listNode = new ListNode(startNode, endNode);
+            
+            listNode.AddNode(1);
+            listNode.AddNode(99);
 
+            listNode.AddNode(2);
         }
     }
 }

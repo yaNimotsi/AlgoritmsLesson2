@@ -8,7 +8,7 @@ namespace AlgoritmsLesson2Task1
     {
         Node head;
         Node last;
-        int count;
+        private int count;
 
         public ListNode(Node startNode, Node endNode)
         {
@@ -23,26 +23,66 @@ namespace AlgoritmsLesson2Task1
 
         public void AddNode(int value)
         {
-            Node newNode = new Node(value);
-            last.NextNode = newNode;
+            switch (count)
+            {
+                case 0: //Нодов нет
+                    head = new Node(value);
 
-            newNode.PrevNode = last;
-            newNode.NextNode = null;
+                    head.PrevNode = null;
+                    head.NextNode = null;
+                    break;
+                case 1: //Всего 1 нод
+                    if(head != null)
+                    {
+                        last = new Node(value);
 
-            last = newNode;
+                        head.NextNode = last;
+                        last.PrevNode = head;
+                    }
+                    else
+                    {
+                        head = new Node(value);
+
+                        head.NextNode = last;
+                        last.PrevNode = head;
+                    }
+                    break;
+                default:    //Прочие ситуации
+                    Node newNode = new Node(value);
+
+                    last.NextNode = newNode;
+
+                    newNode.PrevNode = last;
+                    newNode.NextNode = null;
+
+                    last = newNode;                    
+                    break;
+            }
             count++;
         }
 
         public void AddNodeAfter(Node node, int value)
         {
-            Node nextNode = node.NextNode;
-            Node newNode = new Node(value);
+            if (node == last)
+            {
+                Node nextNode = new Node(value);
+                nextNode.NextNode = null;
+                nextNode.PrevNode = last;
 
-            nextNode.PrevNode = newNode;
-            node.NextNode = node;
+                last.NextNode = nextNode;
+                last = nextNode;
+            }
+            else
+            {
+                Node nextNode = node.NextNode;
+                Node newNode = new Node(value);
 
-            newNode.PrevNode = node;
-            newNode.NextNode = nextNode;
+                nextNode.PrevNode = newNode;
+                node.NextNode = node;
+
+                newNode.PrevNode = node;
+                newNode.NextNode = nextNode;
+            }
 
             count++;
         }
