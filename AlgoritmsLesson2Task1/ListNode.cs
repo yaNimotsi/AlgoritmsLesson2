@@ -91,7 +91,11 @@ namespace AlgoritmsLesson2Task1
         {
             if (index > count) return;
 
-            if (count == 1) head = null;    //Удаляется единственный эллемент списка
+            if (count == 1)
+            {
+                head = null;    //Удаляется единственный эллемент списка
+                last = null;
+            }
             else if (count == 2)
             {
                 if (index == 1) //Удаляется начало
@@ -144,15 +148,43 @@ namespace AlgoritmsLesson2Task1
 
         public void RemoveNode(Node node)
         {
-            Node nextNode = node?.NextNode;
-            Node prevNode = node?.PrevNode;
+            Node nextNode = node.NextNode;
+            Node prevNode = node.PrevNode;
 
-            if (nextNode == null && prevNode == null) return;
-
-            if (count > 2)
+            if (nextNode == null && prevNode == null)
             {
-                if (nextNode != null) prevNode.NextNode = null;
-                if (prevNode != null) nextNode.PrevNode = null;
+                head = null;
+                last = null;
+
+                count--;
+
+                return;
+            }
+
+            if (nextNode == null)
+            {
+                if (prevNode != null)
+                {
+                    prevNode.NextNode = null;
+                    last = prevNode;
+                }
+            }
+            else
+            {
+                if(prevNode != null) prevNode.NextNode = nextNode;
+            }
+
+            if (prevNode == null)
+            {
+                if (nextNode != null)
+                {
+                    nextNode.PrevNode = null;
+                    head = nextNode;
+                }
+            }
+            else
+            {
+                if (nextNode != null) nextNode.PrevNode = prevNode;
             }
 
             count--;

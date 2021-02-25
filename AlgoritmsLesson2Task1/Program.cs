@@ -91,6 +91,25 @@ namespace AlgoritmsLesson2Task1
 
             if (rez == "1,3,99,100,") Console.WriteLine("Корректная работа метода RemoveNode по индексу");
             else Console.WriteLine("Не корректная работа метода RemoveNode по индексу");
+
+
+            
+            rez = "";
+            listNode.RemoveNode(listNode.last);
+            currentNode = listNode.head;
+            while (true)
+            {
+                rez += $"{currentNode.Value},";
+                if (currentNode.NextNode == null)
+                {
+                    listNode.RemoveNode(currentNode.PrevNode);
+                    break;
+                }
+                else currentNode = currentNode.NextNode;
+            }
+
+            if (rez == "1,3,100,") Console.WriteLine("Корректная работа метода RemoveNode по ноду");
+            else Console.WriteLine("Не корректная работа метода RemoveNode по ноду");
         }
     }
 }
