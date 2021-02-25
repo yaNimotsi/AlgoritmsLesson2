@@ -6,8 +6,8 @@ namespace AlgoritmsLesson2Task1
 {
     class ListNode : ILinkedList
     {
-        Node head;
-        Node last;
+        public Node head;
+        public Node last;
         private int count;
 
         public ListNode(Node startNode, Node endNode)
@@ -15,6 +15,7 @@ namespace AlgoritmsLesson2Task1
             head = startNode;
             last = endNode;
         }
+        public ListNode(){}
 
         public int GetCount()
         {
@@ -74,14 +75,13 @@ namespace AlgoritmsLesson2Task1
             }
             else
             {
-                Node nextNode = node.NextNode;
                 Node newNode = new Node(value);
-
-                nextNode.PrevNode = newNode;
-                node.NextNode = node;
-
                 newNode.PrevNode = node;
-                newNode.NextNode = nextNode;
+                newNode.NextNode = node.NextNode;
+
+                Node nextNode = node.NextNode;
+                nextNode.PrevNode = newNode;
+                node.NextNode = newNode;
             }
 
             count++;
@@ -91,20 +91,52 @@ namespace AlgoritmsLesson2Task1
         {
             if (index > count) return;
 
-            Node currenNode = head;
-            int counter = 0;
-
-            while (currenNode != null)
+            if (count == 1) head = null;    //Удаляется единственный эллемент списка
+            else if (count == 2)
             {
-                if (counter == index)
+                if (index == 1) //Удаляется начало
                 {
-                    Node prevNode = currenNode?.PrevNode;
-                    Node nextNode = currenNode?.NextNode;
+                    head = last;
+                    head.NextNode = null;
 
-                    if (nextNode != null) prevNode.NextNode = null;
-                    if (prevNode != null) nextNode.PrevNode = null;
+                    last = null;
                 }
-                counter++;
+                else    //Удаляется конец
+                {
+                    head.NextNode = null;
+
+                    last = null;
+                }
+            }
+            else if (count == index)    //Удаляем последний эллемент
+            {
+                last = last.PrevNode;
+                last.NextNode = null;
+            }
+            else
+            {
+                Node currenNode = head;
+                int counter = 1;
+
+                while (currenNode != null)
+                {
+                    if (counter == index)
+                    {
+                        Node prevNode = currenNode?.PrevNode;
+                        Node nextNode = currenNode?.NextNode;
+
+                        //if (nextNode != null) prevNode.NextNode = null;
+                        //if (prevNode != null) nextNode.PrevNode = null;
+
+                        prevNode.NextNode = nextNode;
+                        nextNode.PrevNode = prevNode;
+                        break;
+                    }
+
+                    currenNode = currenNode.NextNode;
+
+                    counter++;
+                }
             }
 
             count--;
