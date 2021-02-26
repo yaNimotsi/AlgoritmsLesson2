@@ -10,17 +10,12 @@ namespace AlgoritmsLesson2Task1
         public Node last;
         private int count;
 
-        public ListNode(Node startNode, Node endNode)
-        {
-            head = startNode;
-            last = endNode;
-        }
-        public ListNode(){}
-
         public int GetCount()
         {
             return count;
         }
+
+        public int Count { get { return count; } }
 
         public void AddNode(int value)
         {
@@ -148,6 +143,30 @@ namespace AlgoritmsLesson2Task1
 
         public void RemoveNode(Node node)
         {
+            if (count == 2)
+            {
+                if (node == head)
+                {
+                    head = last;
+                    head.NextNode = null;
+                    head.PrevNode = null;
+
+                    count--;
+
+                    return;
+                }
+                else
+                {
+                    last = head;
+                    last.NextNode = null;
+                    last.PrevNode = null;
+
+                    count--;
+
+                    return;
+                }
+            }
+
             Node nextNode = node.NextNode;
             Node prevNode = node.PrevNode;
 
